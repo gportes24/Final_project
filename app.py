@@ -1,77 +1,75 @@
 import dash
 import dash_core_components as dcc
 import dash_html_components as html
-from dash.dependencies import Input, Output, State
 import plotly.graph_objs as go
-from datetime import datetime
+from dash.dependencies import Input, Output, State
 import pandas as pd
-import numpy as np
 import pickle
 
-app = dash.Dash()
+########### Initiate the app
+app = dash.Dash(__name__, external_stylesheets=['https://codepen.io/chriddyp/pen/bWLwgP.css'])
+server = app.server
+app.title='Stock prices'
 
-app.layout = html.Div([
-    html.Label ("Pick a stock ticker"),
+########### Set up the layout
+app.layout = html.Div(children=[
+    html.H1('Nats gonna win'),
+    html.Div([
+    html.H6('Stop Open'),
+            dcc.Slider(
+                id ='slider1',
+                min=1,
+                max=8,
+                step=0.1,
+                marks= {1:str(i) for i in range(1,9)},
+                value=5,
+                ),
+    html.H6('Stock Close'),
+            dcc.Slider(
+            id ='slider2',
+            min=1,
+            max=8,
+            step=0.1,
+            marks= {1:str(i) for i in range(1,9)},
+            value=5,
+    ),
+    html.Br(),
+    html.H6('# of neighbors'),
     dcc.Dropdown(
-        id = 'first-dropdown',
-        options = [
-            {'label': 'Apple', 'value': 'AAPL'},
-            {'label': 'Ford', 'value': 'F'},
-            {'label': 'Advanced Micro Device', 'value': 'AMD'},
-            {'label': 'Apple', 'value': 'BAC'}
+        id= 'k-drop',
+        options =[{'label':'AAPL', 'value':5},
+                 {'label': 'F', 'value':10},
+                 {'label': 'AMD', 'value': 15},
+                 {'label': 'BAC', 'value': 20},
+                 {'label': 'GE', 'value': 20}
         ],
-        value = 'AAPL'
+        #options =[{'label': i, 'value': 1} for i in [5,10,15,20,25]],
+        value=5
     )
+    ]),
+    html.Div(id='output-message'),
+    html.Br(),
+    html.A('Code on Github', href='https://github.com/austinlasseter/knn_iris_plotly'),
 ])
 
-# tickers = pd.read_csv('tickers.csv')
-# tickers.set_index('Ticker', inplace=True)
-#
-# external_stylesheets = ['https://codepen.io/chriddyp/pen/bWLwgP.css']
-# app=dash.Dash(__name__, external_stylesheets=external_stylesheets)
-# server = app.run_server
-# app.title ='knn'
-#
-# #### read in the model and the dataset
-# training =pd.read_pickle('resources/BAC_fitted_scaler.pkl')
-# filename = open('resources/BACstock_model.pkl', 'rb')
-# model=pickle.load(filename)
-# filename. close()
-#
-#
-# ####set up the layout
-#
-# app.layout = html.Div([
-#     html.H1('This is my stock model'),
-#     dcc.Slider(
-#     id='slider-no-1',
-#     min=1,
-#     max=10,
-#     marks= {i:str(i) for i in range (1,10)},
-#     step = 0.5,
-#     value =5
-#     ),
-#     dcc.Slider(
-#     id='slider-no-2',
-#     min=1,
-#     max=10,
-#     marks= {i:str(i) for i in range (1,11)},
-#     ),
-#     html.Br(),
-#     html.H6(id='my-output-message-here', children='')
-# ])
-#
-# ##### add a Callbacks
-# @app.callback(Output('my-output-message-here', 'children'),
-#             [Input('slider-no-1', 'value'),
-#              Input('slider-no-2', 'value')]
-# )
-# def make_prediction(input0, input1):
-#     new_observation = [[input0, input1]]
-#     prediction = model.predict(new_observation)
-#     specieslist=['High', 'Low', 'Open']
-#     return f'The predicted species of your input is {specieslist[prediction[0]]}'
-#     #return f'my choices are{input} and {input1}'
-# ###### deploy my happen
+### Callbacks
+@app.callback(Output('output-message', 'children'),
+                [Input('k-drop', 'value'),
+                Input('slider1', 'value'),
+                Input('slider2', 'value')
+                ])
+def my_flunky_function(k, value0, value1):
+    file = open(f'resources/_model{}.pkl', 'rb')
+    model= pickle.load(file)
+    file.close()
+    # define the new observation from the chosen values
+    new_obs =[[value0, value1]]
+    my_prediction = model.predict(new_obs)
+    #return (f' you chose {k} and {value0} and {value1}')
+    return f' you chose {} and the predicted species number is:{my_prediction}'
+
+
+
+############ Execute the app
 if __name__ == '__main__':
-    app.run_server(debug=True)
+    app.run_server(debug=True)# automatically reload
