@@ -16,8 +16,8 @@ colors = {
 }
 ########### Set up the layout
 
-app.layout = html.Div(style={'backgroundColor': colors['background']}, children=[
-#app.layout = html.Div(children=[
+#app.layout = html.Div(style={'backgroundColor': colors['background']}, children=[
+app.layout = html.Div(children=[
     html.H1(
         children = 'Stock Closing Prices',
         style={
