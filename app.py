@@ -12,7 +12,7 @@ server = app.server
 app.title='Stock prices'
 colors = {
     'background': '#111111',
-    'text': '#566573'
+    'text': '#000080'
 }
 ########### Set up the layout
 
@@ -103,6 +103,7 @@ app.layout = html.Div(children=[
     ]),
     html.Div(id='output-message'),
     html.Br(),
+
 
     html.A('Code on Github', href='https://github.com/gportes24/Final_project'),
 ])
