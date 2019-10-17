@@ -12,7 +12,7 @@ server = app.server
 app.title='Stock prices'
 colors = {
     'background': '#111111',
-    'text': '#FDFEFE'
+    'text': '#566573'
 }
 ########### Set up the layout
 
