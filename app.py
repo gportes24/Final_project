@@ -16,8 +16,8 @@ colors = {
 }
 ########### Set up the layout
 
-#app.layout = html.Div(style={'backgroundColor': colors['background']}, children=[
-app.layout = html.Div(children=[
+app.layout = html.Div(style={'backgroundColor': colors['background']}, children=[
+#app.layout = html.Div(children=[
     html.H1(
         children = 'Stock Closing Prices',
         style={
@@ -29,56 +29,56 @@ app.layout = html.Div(children=[
     html.H6('LOW'),
             dcc.Slider(
                 id ='slider1',
-                min=0,
-                max=10,
-                step=0.1,
-                marks= {1:str(i) for i in range(1,11)},
-                value=4,
+                min=-2,
+                max=4,
+                step=0.5,
+                marks= {1:str(i) for i in range(1,7)},
+                value=2,
                 ),
     html.H6('HIGH'),
             dcc.Slider(
                 id ='slider2',
-                min=0,
+                min=-2,
                 max=4,
-                step=0.1,
-                marks= {1:str(i) for i in range(1,4)},
-                value=4,
+                step=0.5,
+                marks= {1:str(i) for i in range(1,7)},
+                value=2,
                 ),
     html.H6('OPEN'),
             dcc.Slider(
                 id ='slider3',
-                min=0,
+                min=-2,
                 max=4,
-                step=0.1,
-                marks= {1:str(i) for i in range(1,4)},
-                value=4,
+                step=0.5,
+                marks= {1:str(i) for i in range(1,7)},
+                value=2,
                 ),
     html.H6('SMA_5'),
             dcc.Slider(
                 id ='slider4',
-                min=0,
+                min=-2,
                 max=4,
-                step=0.1,
-                marks= {1:str(i) for i in range(1,4)},
-                value=4,
+                step=0.5,
+                marks= {1:str(i) for i in range(1,7)},
+                value=2,
                 ),
     html.H6('Volume'),
             dcc.Slider(
                 id ='slider5',
-                min=0,
+                min=-2,
                 max=4,
-                step=0.1,
-                marks= {1:str(i) for i in range(1,4)},
-                value=4,
+                step=0.5,
+                marks= {1:str(i) for i in range(1,7)},
+                value=2,
                 ),
     html.H6('Daily Change'),
             dcc.Slider(
             id ='slider6',
-            min=0,
+            min=-2,
             max=4,
-            step=0.1,
-            marks= {1:str(i) for i in range(1,20)},
-            value=4,
+            step=0.5,
+            marks= {1:str(i) for i in range(1,7)},
+            value=2,
     ),
     html.Br(),
     #html.H6('STOCK MARKET TICKERS'),
@@ -107,6 +107,7 @@ app.layout = html.Div(children=[
 
     html.A('Code on Github', href='https://github.com/gportes24/Final_project'),
 ])
+
 
 ### Callbacks
 @app.callback(Output('output-message', 'children'),
