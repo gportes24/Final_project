@@ -151,7 +151,7 @@ app.layout = html.Div(style={'backgroundColor': colors['background']}, children=
                 Input('slider6', 'value')
                 ])
 def my_flunky_function(k, value1, value2, value3, value4, value5, value6):
-    file = open(f'resources/{k}_final_model.pkl', 'rb')
+    file = open(f'Resources/{k}_final_model.pkl', 'rb')
     model= pickle.load(file)
     file.close()
     # define the new observation from the chosen values
