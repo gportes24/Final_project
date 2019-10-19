@@ -12,7 +12,7 @@ server = app.server
 app.title='Stock prices'
 colors = {
     'background': '#111111',
-    'text': '#000080'
+    'text': '#3183DC'
 }
 ########### Set up the layout
 
@@ -91,10 +91,10 @@ app.layout = html.Div(style={'backgroundColor': colors['background']}, children=
     ),
     dcc.Dropdown(
         id= 'k-drop',
-        options =[{'label':'AAPL', 'value':'AAPL'},
-                 {'label': 'F', 'value':'F'},
-                 {'label': 'AMD', 'value': 'AMD'},
-                 {'label': 'BAC', 'value': 'BAC'},
+        options =[{'label':'Apple', 'value':'AAPL'},
+                 {'label': 'Ford', 'value':'F'},
+                 {'label': 'Advanced Micro Devices', 'value': 'AMD'},
+                 {'label': 'Bank of America', 'value': 'BAC'},
                  {'label': 'GE', 'value': 'GE'}
         ],
         #options =[{'label': i, 'value': 1} for i in [5,10,15,20,25]],
