@@ -117,7 +117,7 @@ app.layout = html.Div(style={'backgroundColor': colors['background']}, children=
                 Input('slider3', 'value'),
                 Input('slider4', 'value'),
                 Input('slider5', 'value'),
-                Input('slider6', 'value')
+                Input('slider6', 'value'),
 
                 ])
 def my_flunky_function(k, value1, value2, value3, value4, value5, value6):
