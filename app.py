@@ -98,7 +98,7 @@ app.layout = html.Div(style={'backgroundColor': colors['background']}, children=
                  {'label': 'GE', 'value': 'GE'}
         ],
         #options =[{'label': i, 'value': 1} for i in [5,10,15,20,25]],
-        value='AAPL'
+        value='AAPL',
     )
     ]),
     html.Div(id='output-message'),
@@ -117,8 +117,7 @@ app.layout = html.Div(style={'backgroundColor': colors['background']}, children=
                 Input('slider3', 'value'),
                 Input('slider4', 'value'),
                 Input('slider5', 'value'),
-                Input('slider6', 'value'),
-
+                Input('slider6', 'value')
                 ])
 def my_flunky_function(k, value1, value2, value3, value4, value5, value6):
     file = open(f'resources/{k}_final_model.pkl', 'rb')
@@ -127,8 +126,7 @@ def my_flunky_function(k, value1, value2, value3, value4, value5, value6):
     # define the new observation from the chosen values
     new_obs =[[value1, value2, value3, value4, value5, value6]]
     my_prediction = model.predict(new_obs)
-    #return (f' you chose {k} and {value0} and {value1}')
-    return f' you chose {k} and the predicted closing price is $:{my_prediction}'
+    return f' you chose {k} and the predicted closing price is ${round(my_prediction[0],2)}'
 
 
 
