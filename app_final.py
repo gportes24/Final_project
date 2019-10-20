@@ -8,13 +8,11 @@ import pickle
 
 ########### Initiate the app
 app = dash.Dash(__name__, external_stylesheets=['https://codepen.io/chriddyp/pen/bWLwgP.css'])
-df = pd.read_csv(
-    'https://raw.githubusercontent.com/gportes24/Final_project/master/top5.csv')
 server = app.server
 app.title='Stock prices'
 colors = {
-    'background': '#111111',
-    'text': '#3183DC'
+    'background': '#FBFCFC',
+    'text': '#D42741'
 }
 ########### Set up the layout
 
@@ -101,39 +99,10 @@ app.layout = html.Div(style={'backgroundColor': colors['background']}, children=
         ],
         #options =[{'label': i, 'value': 1} for i in [5,10,15,20,25]],
         value='AAPL',
-        ),
-        html.Div(id='output-message'),
-        html.Br(),
-
-    dcc.Graph(
-        id='volume',
-        figure={
-            'data': [
-                go.Scatter(
-                    x=df[df['ticker'] == i]['High'],
-                    y=df[df['ticker'] == i]['Volume'],
-                    text=df[df['ticker'] == i]['Date'],
-                    mode='markers',
-                    opacity=0.7,
-                    marker={
-                        'size': 15,
-                        'line': {'width': 0.5, 'color': 'white'}
-                    },
-                    name=i
-                ) for i in df.ticker.unique()
-            ],
-            'layout': go.Layout(
-                xaxis={'type': 'log', 'title': 'High'},
-                yaxis={'title': 'Volume'},
-                margin={'l': 40, 'b': 40, 't': 10, 'r': 10},
-                legend={'x': 0, 'y': 1},
-                hovermode='closest'
-            )
-        }
     )
     ]),
-    # html.Div(id='output-message'),
-    # html.Br(),
+    html.Div(id='output-message'),
+    html.Br(),
 
 
     html.A('Code on Github', href='https://github.com/gportes24/Final_project'),
@@ -151,13 +120,15 @@ app.layout = html.Div(style={'backgroundColor': colors['background']}, children=
                 Input('slider6', 'value')
                 ])
 def my_flunky_function(k, value1, value2, value3, value4, value5, value6):
-    file = open(f'Resources/{k}_final_model.pkl', 'rb')
+    file = open(f'resources/{k}_final_model.pkl', 'rb')
     model= pickle.load(file)
     file.close()
     # define the new observation from the chosen values
     new_obs =[[value1, value2, value3, value4, value5, value6]]
     my_prediction = model.predict(new_obs)
     return f' you chose {k} and the predicted closing price is ${round(my_prediction[0],2)}'
+
+
 
 
 ############ Execute the app
